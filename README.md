@@ -1,21 +1,28 @@
-# Let-It-Flow
+Для запуска проекта после клонирования репозитория откройте два терминала и запустите последовательно следующие команды из корня проекта:
 
-<b><hr>Главная страница<hr> <br>
-<img width="1440" alt="front let-it-flow" src="https://user-images.githubusercontent.com/96245666/160631369-331ba769-b524-4602-beae-4409b266df1e.png"><img width="1381" alt="popular let-it-flow" src="https://user-images.githubusercontent.com/96245666/160631677-51881176-436d-4d5b-99f8-8464925b9add.png">
-<br>
-<hr>Корзина магазина<hr> <br>
-<img width="1431" alt="cart let-it-flow" src="https://user-images.githubusercontent.com/96245666/160631693-8acbeacd-ab99-4966-989e-4a1b9d601b02.png">
-<hr>Корзина-доставка<hr> <br>
-<img width="1439" alt="cart-order let-it-flow" src="https://user-images.githubusercontent.com/96245666/160631713-cc1f4fa3-fce3-4fc2-ae6a-fb27e7bd013f.png">
-<hr>Вкладка заказы<hr> <br>
-<img width="1416" alt="order let-it-flow" src="https://user-images.githubusercontent.com/96245666/160631960-bee2c137-668d-4d3b-8865-fdaf2c12789a.png">
-<hr>Карта местоположения<hr> <br>
-<img width="1440" alt="map let-it-flow" src="https://user-images.githubusercontent.com/96245666/160632013-bb28977c-2fd4-4472-ac75-e9a65e8d957c.png">
-<hr>Админ-панель для управления товарами и заказами<hr> <br>
-<img width="1422" alt="admit let-it-flow" src="https://user-images.githubusercontent.com/96245666/160632034-9ac4536e-3b76-449d-a550-29593473d98b.png">
-
-
-Для запуска проекта после клонирования репозитория откройте два терминала и запустите следующие команды из корня проекта:
-
- npm run build <br>
  npm start <br>
+ npm run build <br>
+
+ 
+<h5 align=center><b><hr>Главная страница<hr></h5>
+
+<div align=center><img width="80%" alt="main page" src="https://user-images.githubusercontent.com/92839518/173991172-02d12f65-332f-4c54-8d15-43bb6fb55f60.png"></div>
+ 
+ <h5 align=center><b><hr>Корзина<hr></h5>
+
+<div align=center><img width="80%" alt="cart" src="https://user-images.githubusercontent.com/92839518/173992203-951a6c3c-6fcb-42bf-9205-1d0b3789df54.png"></div>
+
+ <h5 align=center><b><hr>Заказы<hr></h5>
+
+<div align=center><img width="80%" alt="orders" src="https://user-images.githubusercontent.com/92839518/173992344-79c6fcd8-e7b1-4e7f-949d-2bde964d707a.png"></div>
+  
+<h5 align=center><b><hr>Панель администратора<hr></h5>
+
+<div align=center><img width="80%" alt="admin" src="https://user-images.githubusercontent.com/92839518/173992616-2f69937e-4665-4c09-8101-f539d6d62c86.png"></div>
+ 
+ <h5 align=center><b><hr>Карта, календарь<hr></h5>
+
+<div align=center><img width="40%" alt="map" src="https://user-images.githubusercontent.com/92839518/173992746-b5d0ab33-7297-445d-a9d1-86bda69842cb.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="40%" alt="calendar" src="https://user-images.githubusercontent.com/92839518/173992758-b3a1852c-c751-4583-84f0-87095c9b72ba.png"></div>
+
+
+
