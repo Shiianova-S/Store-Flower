@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Accordion from './Accordion'
 import './AccordionList.css';
+import { v4 as uuidv4 } from 'uuid'
 
 
 const AccordionList = ({ title, content }) => {
@@ -39,7 +40,7 @@ const accordionData = [
   return (
     <div className="accordion">
       {accordionData.map(({ title, content }) => (
-        <Accordion title={title} content={content} />
+        <Accordion title={title} key={uuidv4()} content={content} />
       ))}
     </div>
   );

@@ -1,23 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Card from "../Card/Card"
 import './BouquetListMain.css';
 
-function BouquetListMain(props) {
+function BouquetListMain() {
   const [allCatalog, setAllCatalog] = useState(false)
-  const { bouquets } = useSelector((state) => state)
-
-  const dispatch = useDispatch()
+  const { bouquets } = useSelector(state => state)
   
-   useEffect(() =>{
-   fetch(`${process.env.REACT_APP_API_URL}bouquets`)
-   .then(res => res.json())
-   .then(data => dispatch({ type: 'INIT_BOUQUETS', payload: data}))
-   .catch(err=>console.log(err));
-},[])
-  
- 
   return (
     <>
       <div className="card-container">

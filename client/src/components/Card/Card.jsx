@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import ButtonBuy from '../ButtonBuy/ButtonBuy';
 import { Link } from 'react-router-dom';
 import ModalBuy from '../Modal/ModalBuy';
 import "./Card.css"
 
 function Card({ bouquet }) {
-  const [count, setCount] = useState(1);
-  const [error, setError] = useState(true);
-
-  const handleCloseError = () => setSwitchBtn(true);
-
   const [switchBtn, setSwitchBtn] = useState(false)
 
   if(switchBtn) {
@@ -22,7 +15,7 @@ function Card({ bouquet }) {
     <div className="card-wrapper">
       <Link to={`/card/${bouquet.id}`}>
       <div className="card-box-img">
-        <img className="card-img" width="100%" height="100%" src={`${process.env.REACT_APP_API_URL}${bouquet.img}`} alt="b-main"></img>
+        <img className="card-img" width="100%" height="100%" src={`${bouquet.img}`} alt="b-main"></img>
       </div>
       </Link>
       <div className='card-info-content'>
@@ -30,7 +23,7 @@ function Card({ bouquet }) {
         <h4 className="card-description">{bouquet.description}</h4>
         <p className="card-price">{bouquet.price} руб.</p>
       </div>
-     {switchBtn && <ModalBuy/>}
+      {switchBtn && <ModalBuy/>}
       <div className="card-button-wrapper">
         <ButtonBuy key={bouquet.id} setSwitchBtn={setSwitchBtn} bouquet={bouquet} />
       </div>

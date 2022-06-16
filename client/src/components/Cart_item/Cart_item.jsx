@@ -17,7 +17,7 @@ function Cart_item({ item }) {
 
   useEffect(()=> {
     setId(item.bouquet.id)
-  },[])
+  },[item.bouquet.id])
 
   const incrementItem = (id) => {
     dispatch(incrementItemToCart(id))
@@ -34,7 +34,7 @@ function Cart_item({ item }) {
     <div className='cart-item-card'>
 
       <div className='cart-item-card-img-box'>
-        <img className='cart-item-card-img' src={`${process.env.REACT_APP_API_URL}${item.bouquet.img}`} alt="bouquet" />
+        <img className='cart-item-card-img' src={`${item.bouquet.img}`} alt="bouquet" />
       </div>
 
       <div className='cart-item-card-content'>
@@ -51,8 +51,7 @@ function Cart_item({ item }) {
                 </line>
               </svg>
             </button>
-            
-            <input className="counter_input-fild" id="item_count_1579" value={item.count} readonly />
+            <input className="counter_input-fild" id="item_count_1579" readOnly value={item.count} />
 
             <button className="plus" type="button" onClick={() => incrementItem(stateId)}>
               <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">

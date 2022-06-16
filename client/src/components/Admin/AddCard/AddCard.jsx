@@ -36,9 +36,8 @@ function AddCard(props) {
     axios.post('http://localhost:4000/bouquets', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
-      }}).then(({ data }) => {
-       dispatch(addBouquet(data))
-    })
+      }})
+    .then(({ data }) => dispatch(addBouquet(data)))
     .catch(console.error());
     setTitle('')
     setPrice('')
@@ -69,7 +68,7 @@ function AddCard(props) {
             <div className="card-input">
               <label className="card-input__label">Категория</label>
               <select name="category_id" id="" className="card-input__input">
-                {categories?.map((category) => <option value={category.id}>{category.name}</option>)}
+                {categories?.map((category) => <option value={category.id} key={category.id}>{category.name}</option>)}
               </select>
             </div>
             <button className="btn">Добавить букет</button>

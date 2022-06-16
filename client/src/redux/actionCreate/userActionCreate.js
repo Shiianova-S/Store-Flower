@@ -11,12 +11,12 @@ import {
   REFRESH_TOKEN } from "../actionType/userActionType"
 
 
-export const login = (user) => ({
+export const loginUser = (user) => ({
   type: LOGIN,
   payload: user
 })
 
-export const signup = (user) => ({
+export const signupUser = (user) => ({
   type: SIGNUP,
   payload: user
 })
@@ -27,9 +27,9 @@ export const initCart = () => ({
 })
 
 //* Добавить товар в корзину
-export const addItemToCart = (bouquet) => ({
+export const addItemToCart = (payload) => ({
   type: ADD_ITEM_CART,
-  payload: bouquet
+  payload: payload
 })
 
 //* Удалить товар из корзины
@@ -54,9 +54,8 @@ export const decrementItemToCart = (id) => ({
 export const clearCart = () => ({
   type: CLEAR_CART,
 })
-export const logout = () => ({
+export const logoutUser = () => ({
   type: LOGOUT,
-  payload: null
 })
 
 export const refreshToken = (accessToken) => (dispatch) => {

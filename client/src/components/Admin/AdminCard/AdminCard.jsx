@@ -13,7 +13,7 @@ export default function AdminCard({ bouquet }) {
 
   const dispatch = useDispatch()
   const deleteHandler = (id) => {
-    axios.delete(`http://localhost:4000/bouquets/${id}`)
+    axios.delete(`bouquets/${id}`)
     .then(({data}) => {dispatch(deleteBouquet(id))})
     .catch(console.error())}
 

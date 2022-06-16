@@ -92,10 +92,12 @@ async function userAccess(req, res) {
     // достаем из кук токен
     const { accessToken} = req.cookies;
     const userData = await access(accessToken);
-    console.log('1111', userData)
     // установим рефреш куки
-    return res.json(userData);
-  } catch (error) {
+    if (userData) {
+      return res.json(userData);
+    }
+  } catch(error) {
+    return res.json(error.message);
   }
 }
 

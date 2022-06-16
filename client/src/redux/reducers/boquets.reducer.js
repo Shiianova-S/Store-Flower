@@ -2,7 +2,6 @@ import {
   ADD_BOUQUET,
   DELETE_BOUQUET,
   UPDATE_BOUQUET,
-  INIT_CATEGORY_BOUQUETS,
   INIT_BOUQUETS
 } from '../actionType/bouquetActionType'
 
@@ -13,10 +12,6 @@ export function bouquetsReducer(state = [], action) {
 
     case INIT_BOUQUETS: {
       return [...action.payload]
-    }
-
-    case INIT_CATEGORY_BOUQUETS: {
-      return {...state, bouquets: action.payload}
     }
 
     case ADD_BOUQUET:

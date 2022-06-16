@@ -2,7 +2,7 @@ import './Login.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { login } from '../../../redux/actionCreate/userActionCreate';
+import { loginUser } from '../../../redux/actionCreate/userActionCreate';
 import { useForm } from "react-hook-form";
 
 
@@ -19,11 +19,11 @@ export default function Login() {
 			password: data.password,
 		};
 
-    axios.post('http://localhost:4000/login', payload, {
+    axios.post('login', payload, {
       withCredentials: true,
     })
     .then(({ data }) => {
-			dispatch(login(data))
+			dispatch(loginUser(data))
       if (data.user.admin) {
         navigate('/adminboard');
       } else {
@@ -40,8 +40,8 @@ export default function Login() {
       
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="card-input">
-          <label htmlFor="email" class="card-input__label">Email</label>
-          <input class="card-input__input" {...register("email", {
+          <label htmlFor="email" className="card-input__label">Email</label>
+          <input className="card-input__input" {...register("email", {
                 required: true,
                 pattern:
                 /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,

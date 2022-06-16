@@ -15,7 +15,6 @@ const cartRouter = require('./routes/cart.routes');
 const categoryRoutes = require('./routes/category.routes');
 const bouquetsRouter = require('./routes/bouquets.routes');
 const orderRouter = require('./routes/order.routes');
-// const cardRouter = require('./routes/card.routes');
 
 //* config
 app.use(logger('dev'));
@@ -40,7 +39,6 @@ app.use('/cart', cartRouter);
 app.use('/categories', categoryRoutes);
 app.use('/bouquets', bouquetsRouter);
 app.use('/order', orderRouter);
-// app.use('/card', cardRouter);
 
 
 app.get('*', (req, res) => {

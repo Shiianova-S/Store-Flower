@@ -10,30 +10,29 @@ import { useEffect } from "react";
 
 
 function Slider() {
-  const [slidId, setSlideStateID] = useState(0)
-  const [slideSate, setSlideState] = useState(false);
+  const [currentSlideId, setSlideStateID] = useState(0)
 
-  const images = [{id: 1, image: Slide1}, {id: 2, image: Slide2}, {id: 3, image: Slide3}, {id: 4,image: Slide4} ];
+  const images = [Slide1, Slide2, Slide3, Slide4];
 
   useEffect(()=> {
     let timeoutId = setTimeout(() => {
-      if(slidId < 3) {
+      if(currentSlideId < 3) {
         setSlideStateID((prev) => prev + 1)
       } else {
         setSlideStateID(0)
       }
-    }, 6000)
+    }, 5000)
 
     return () => {
       clearTimeout(timeoutId)
     }
 
-  }, [slidId])
+  }, [currentSlideId])
 
   return (
     <>
       <div className="container-slider">
-      {images.map((slide, id) => <div onClick={() => setSlideStateID(id)} id={id} key={id} className={`${(slidId === id ) ? "active" : ''} slide`} style={{ backgroundImage: `url(${slide.image})`, backgroundSize: 'cover' }}></div>)}
+      {images.map((image, id) => <div onClick={() => setSlideStateID(id)} key={id} className={`${(currentSlideId === id ) ? "active" : ''} slide`} style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }}></div>)}
       </div>
     </>
   );

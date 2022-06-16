@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
-import { signup } from '../../../redux/actionCreate/userActionCreate'
+import { signupUser } from '../../../redux/actionCreate/userActionCreate'
 import { useForm } from 'react-hook-form'
 
 function Signup() {
@@ -26,7 +26,7 @@ function Signup() {
         withCredentials: true,
       })
 			.then(({ data }) => {
-				dispatch(signup(data));
+				dispatch(signupUser(data));
 				navigate('/');
 			})
 			.catch(console.error());

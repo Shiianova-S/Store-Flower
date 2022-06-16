@@ -4,8 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cd client && npm install && npm start",
+    "start": "cd server && npm install && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shiianova-S/Store-Flower.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shiianova-S/Store-Flower/issues"
+  },
+  "homepage": "https://github.com/Shiianova-S/Store-Flower",
+  "engines": {
+    "node": "16.x"
+  }
 }
+

@@ -1,5 +1,5 @@
 import { ADD_BOUQUET,
-  INIT_BOUQUET,
+  INIT_BOUQUETS,
   DELETE_BOUQUET,
   UPDATE_BOUQUET } from "../actionType/bouquetActionType";
 
@@ -21,9 +21,9 @@ export const deleteBouquet = (payload) => {
     payload
   }
 }
-export const initBouquet = (payload) => {
+export const initBouquets = (payload) => {
   return {
-    type: INIT_BOUQUET,
+    type: INIT_BOUQUETS,
     payload
   }
 }

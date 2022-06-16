@@ -77,12 +77,6 @@ main {
   margin-bottom: 10px;
 }
 
-/* .flex-wrapper {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-} */
 
 form {
   margin: 20px 0;
@@ -92,12 +86,6 @@ form {
   padding: 60px 0;
 }
 
-/* .wrapper {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-} */
 
 .nowrapper {
   display: flex;
