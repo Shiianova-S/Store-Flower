@@ -1,7 +1,15 @@
-const { Category } = require('../db/models');
+const { Category, Bouquet } = require('../db/models');
 
 const getCategories = async (req, res) => {
   const categories = await Category.findAll();
   res.json(categories);
-}
-module.exports = { getCategories };
+};
+
+const getOneCategory = async (req, res) => {
+  const { id } = req.params;
+  const bouquetCategory = await Bouquet.findAll({
+    where: { category_id: id },
+  });
+  res.json(bouquetCategory);
+};
+module.exports = { getCategories, getOneCategory };

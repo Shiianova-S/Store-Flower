@@ -5,6 +5,6 @@ const userObj = (user) => ({
   phone: user.phone,
   email: user.email,
   admin: user.admin,
-})
+});
 
-module.exports = { userObj }
+module.exports = { userObj };

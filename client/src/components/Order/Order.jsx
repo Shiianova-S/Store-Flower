@@ -1,36 +1,28 @@
-import axios from 'axios';
-import { axiosWithConfig } from '../../utils/axios';
-import React from 'react';
-import OrderList from './OrderList/OrderList'
-import CartOrderList from './CartOrderList/CartOrderList';
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import './Order.css'
-import { login } from '../../redux/actionCreate/userActionCreate';
+import axios from "axios";
+import React from "react";
+import OrderList from "./OrderList/OrderList";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
-function Order({user}) {
-  
-  const [order, setOrder] = useState([])
-  const [orderCart, setOrderCart] = useState([])
+import "./Order.css";
+
+function Order() {
+  const { user } = useSelector((state) => state);
+  const [orders, setOrders] = useState(false);
 
   useEffect(() => {
-    //**? Сервер возвращает заказы по id (hardcode id)
-    axios(`http://localhost:4000/order/${user?.user.id}`)
-    .then(({data}) => setOrder(data))
-
-
-    //**? Сервер возвращает корзину по id (hardcode id)
-    axios(`http://localhost:4000/cart/${user?.user.id}`)
-    .then(({data}) => setOrderCart(data))
-    
-  }, [user])
+    axios(`/order/${user?.user.id}`).then(({ data }) => {
+      setOrders(data);
+    });
+  }, [user?.user.id]);
 
   return (
-    <div className='container-orders'>
+    <div className="container-orders">
       <div className='orders-title'>Ваши заказы</div>
-        {order && order?.map(el => (
-          <div className='orders'>
-            <OrderList order={el} cart={orderCart.filter(cart => cart?.uuid === el?.uuid)} />
+        {orders && orders.map(el => (
+          <div className='orders' key={uuidv4()}>
+            <OrderList order={el}  />
           </div>
         ))}
     </div>

@@ -1,55 +1,69 @@
-const { login, logout, refresh, signup, access } = require('./../service/user.service')
+const {
+  login,
+  logout,
+  refresh,
+  signup,
+  access,
+} = require('../service/user.service');
 
 const userRegister = async (req, res, next) => {
   try {
-    const { first_name, last_name, email, phone, password } = req.body;
-    const userData = await signup(first_name, last_name, email, phone, password);
+    const {
+      first_name, last_name, email, phone, password,
+    } = req.body;
+    const userData = await signup(
+      first_name,
+      last_name,
+      email,
+      phone,
+      password,
+    );
 
-    res.cookie("refreshToken", userData.refreshToken, {
+    res.cookie('refreshToken', userData.refreshToken, {
       maxAge: 1000 * 60 * 60 * 24 * 30,
       httpOnly: true,
     });
 
-    res.cookie("accessToken", userData.accessToken, {
+    res.cookie('accessToken', userData.accessToken, {
       maxAge: 1000 * 60 * 60 * 24 * 30,
       httpOnly: true,
     });
 
-    return res.json(userData)
-    
+    return res.json(userData);
   } catch (error) {
-    res.status(401)
+    res
+      .status(401)
       .json({
         message: error.message,
-      }).end();
+      })
+      .end();
   }
 };
-
 
 const userLogin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const userData = await login(email, password);
 
-    res.cookie("refreshToken", userData.refreshToken, {
+    res.cookie('refreshToken', userData.refreshToken, {
       maxAge: 1000 * 60 * 60 * 24 * 30,
       httpOnly: true,
     });
-    res.cookie("accessToken", userData.accessToken, {
+    res.cookie('accessToken', userData.accessToken, {
       maxAge: 1000 * 60 * 60 * 24 * 30,
       httpOnly: true,
     });
 
-    return res.json(userData)
-    
+    return res.json(userData);
   } catch (error) {
-    res.status(401)
+    res
+      .status(401)
       .json({
         message: error.message,
-      }).end();
+      })
+      .end();
   }
 };
-
 
 const userLogout = async (req, res, next) => {
   try {
@@ -58,19 +72,19 @@ const userLogout = async (req, res, next) => {
     // передаем в сервис refresh токен
     const token = await logout(refreshToken);
     // в ответе удаляем cookie
-    res.clearCookie("refreshToken");
-    res.clearCookie("accessToken");
-    console.log(refreshToken)
+    res.clearCookie('refreshToken');
+    res.clearCookie('accessToken');
+    console.log(refreshToken);
     return res.json(token);
-
   } catch (error) {
-    res.status(401)
+    res
+      .status(401)
       .json({
         message: error.message,
-      }).end();
+      })
+      .end();
   }
 };
-
 
 async function userRefresh(req, res) {
   try {
@@ -78,28 +92,36 @@ async function userRefresh(req, res) {
     const { refreshToken } = req.cookies;
     const userData = await refresh(refreshToken);
     // установим рефреш куки
-    res.cookie("refreshToken", userData.refreshToken, {
+    res.cookie('refreshToken', userData.refreshToken, {
       maxAge: 1000 * 60 * 60 * 24 * 30,
       httpOnly: true,
     });
     return res.json(userData);
   } catch (error) {
+    console.log(error);
   }
 }
 
 async function userAccess(req, res) {
   try {
     // достаем из кук токен
-    const { accessToken} = req.cookies;
+    const { accessToken } = req.cookies;
     const userData = await access(accessToken);
     // установим рефреш куки
     if (userData) {
       return res.json(userData);
     }
-  } catch(error) {
+    return {};
+  } catch (error) {
+    console.log(22222);
     return res.json(error.message);
   }
 }
 
-
-module.exports = { userAccess, userRegister, userLogin, userLogout, userRefresh };
+module.exports = {
+  userAccess,
+  userRegister,
+  userLogin,
+  userLogout,
+  userRefresh,
+};

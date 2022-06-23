@@ -18,41 +18,36 @@ import { loginUser } from "./redux/actionCreate/userActionCreate";
 import { useDispatch, useSelector } from "react-redux";
 import AdminBoard from "./components/Admin/AdminBoard/AdminBoard";
 import About from "./components/About/About";
-import { initBouquets } from './redux/actionCreate/bouquetActionCreate';
-import { initCategories } from './redux/actionCreate/categotiesActionCreate';
-
-
+import { initBouquets } from "./redux/actionCreate/bouquetActionCreate";
+import { initCategories } from "./redux/actionCreate/categotiesActionCreate";
 
 function App() {
   const dispatch = useDispatch();
-
+  const { cart } = useSelector((state) => state.cart);
+  
   useEffect(() => {
-    axios('/access', {
+    axios(`/access`, {
       withCredentials: true,
     })
       .then(({ data }) => {
-        dispatch(loginUser(data));})
+        dispatch(loginUser(data));
+      })
       .catch((error) => console.log(error));
-  }, [dispatch]);
-
-  useEffect(() => {
-    axios('/categories', {
+      
+    axios(`/categories`, {
       withCredentials: true,
     })
-    .then(({data}) => dispatch(initCategories(data)))
-    .catch(err => console.log(err))
-  },[dispatch])
+      .then(({ data }) => dispatch(initCategories(data)))
+      .catch((err) => console.log(err));
 
-  useEffect(() => {
-    axios('/bouquets')
-    .then(({data}) => {
-      dispatch(initBouquets(data))
-    })
-    .catch(err=>console.log(err));
-  },[dispatch])
+    axios(`/bouquets`)
+      .then(({ data }) => {
+        dispatch(initBouquets(data));
+      })
+      .catch((err) => console.log(err));
+      localStorage.setItem('cart', JSON.stringify(cart));
+  }, [dispatch, cart]);
 
-  
-  const { user } = useSelector((state) => state);
 
   return (
     <BrowserRouter>
@@ -69,7 +64,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/categories/:id" element={<Category />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/order" element={<Order user={user} />} />
+          <Route path="/order" element={<Order />} />
           <Route path="/card/:id" element={<CardPage />} />
           <Route path="/adminboard" element={<AdminBoard />} />
           <Route path="/about" element={<About />} />

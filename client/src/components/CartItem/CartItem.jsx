@@ -1,23 +1,16 @@
 import React from 'react';
-import './Cart_item.css'
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import './CartItem.css'
+import { useDispatch } from 'react-redux';
 
 import { 
   incrementItemToCart, 
   decrementItemToCart, 
-  DeleteItemToCart } from '../../redux/actionCreate/userActionCreate'
+  DeleteItemToCart } from '../../redux/actionCreate/cartActionCreate'
 
 
-function Cart_item({ item }) {
+function CartItem({ item }) {
 
   const dispatch = useDispatch()
-  const [stateId, setId] = useState()
-
-  useEffect(()=> {
-    setId(item.bouquet.id)
-  },[item.bouquet.id])
 
   const incrementItem = (id) => {
     dispatch(incrementItemToCart(id))
@@ -39,13 +32,11 @@ function Cart_item({ item }) {
 
       <div className='cart-item-card-content'>
         <div className='cart-item-card--name'>{item.bouquet.title}</div>
-        <div className='cart-item-card--price'>{item.bouquet.price} руб.</div>
-        <div className='cart-item-card--id'>id товара: {item.bouquet.id}</div>
-        
+        <div className='cart-item-card--price'>{item.bouquet.price} руб.</div>        
         <div className='box-counter-delete'>
           <div data-min="1" className="counter-cart">
 
-            <button className="minus" type="button" onClick={() => decrementItem(stateId)}>
+            <button className="minus" type="button" onClick={() => decrementItem(item.bouquet.id)}>
               <svg width="16" height="1" viewBox="0 0 16 1" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <line y1="0.5" x2="16" y2="0.5" stroke="#292929">
                 </line>
@@ -53,7 +44,7 @@ function Cart_item({ item }) {
             </button>
             <input className="counter_input-fild" id="item_count_1579" readOnly value={item.count} />
 
-            <button className="plus" type="button" onClick={() => incrementItem(stateId)}>
+            <button className="plus" type="button" onClick={() => incrementItem(item.bouquet.id)}>
               <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <line y1="7.5" x2="15" y2="7.5" stroke="#292929"></line>
                 <line x1="7.5" y1="2.18557e-08" x2="7.5" y2="15" stroke="#292929"></line>
@@ -61,7 +52,7 @@ function Cart_item({ item }) {
             </button>
 
           </div>
-          <button className="cart-item-btn-delete" onClick={() => deleteItem(stateId)}>Удалить</button>
+          <button className="cart-item-btn-delete" onClick={() => deleteItem(item.bouquet.id)}>Удалить</button>
         </div>
       </div>
 
@@ -69,4 +60,4 @@ function Cart_item({ item }) {
   );
 }
 
-export default Cart_item;
+export default CartItem;

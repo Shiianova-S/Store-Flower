@@ -1,17 +1,16 @@
-require('dotenv').config()
-const createError = require('http-errors');
+require('dotenv').config();
+// const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const cors = require('cors')
+const cors = require('cors');
 const fileUpload = require('express-fileupload');
 
 const app = express();
 
 //* Импорт роутов
 const indexRouter = require('./routes/index.routes');
-const cartRouter = require('./routes/cart.routes');
 const categoryRoutes = require('./routes/category.routes');
 const bouquetsRouter = require('./routes/bouquets.routes');
 const orderRouter = require('./routes/order.routes');
@@ -35,17 +34,15 @@ app.options('*', cors(corsConfig));
 
 //* use routes
 app.use('/', indexRouter);
-app.use('/cart', cartRouter);
 app.use('/categories', categoryRoutes);
 app.use('/bouquets', bouquetsRouter);
 app.use('/order', orderRouter);
-
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('../client/build/index.html'));
 });
 
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);

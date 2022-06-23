@@ -1,18 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import { useSelector } from 'react-redux';
 import AdminCard from '../AdminCard/AdminCard'
 import AddCard from "../AddCard/AddCard";
 
 
 export default function AdminBoard() {
-
-  const dispatch = useDispatch()
-  useEffect(() => {
-    fetch('http://localhost:4000/bouquets')
-     .then(res => res.json())
-     .then(data => dispatch({ type: 'INIT_BOUQUETS', payload: data}))
-     .catch(err=>console.log(err));
-   }, [])
 
   const { bouquets } = useSelector((state) => state)
   const [query, setQuery] = useState('')

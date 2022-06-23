@@ -1,42 +1,43 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Bouquet extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate({ Cart, Category }) {
-      this.belongsToMany(Cart, {through: 'Cart_order'})
-      this.belongsTo(Category, { foreignKey: 'category_id' })
+    static associate({ Order, Category, BouquetList }) {
+      this.belongsToMany(Order, { through: BouquetList, foreignKey: 'bouquet_id' });
+      this.belongsTo(Category, { foreignKey: 'category_id' });
+      this.hasOne(BouquetList, { foreignKey: 'bouquet_id', as: 'count' });
     }
   }
-  Bouquet.init({
-    title: {
-     type: DataTypes.STRING,
+  Bouquet.init(
+    {
+      title: {
+        type: DataTypes.STRING,
+      },
+      description: {
+        type: DataTypes.STRING,
+      },
+      price: {
+        type: DataTypes.INTEGER,
+      },
+      img: {
+        type: DataTypes.TEXT,
+      },
+      inStock: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
+      category_id: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'Category',
+          key: 'id',
+        },
+      },
     },
-    description: {
-      type: DataTypes.STRING,
+    {
+      sequelize,
+      modelName: 'Bouquet',
     },
-    price: {
-     type: DataTypes.INTEGER,
-    },
-    img: {
-     type: DataTypes.TEXT,
-    },
-    category_id: {
-     type: DataTypes.INTEGER,
-     references: {
-       model: 'Category',
-       key: 'id'
-     }
-    }
-  }, {
-    sequelize,
-    modelName: 'Bouquet',
-  });
+  );
   return Bouquet;
 };

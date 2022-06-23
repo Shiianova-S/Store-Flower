@@ -3,16 +3,9 @@ import Categories from '../Categories/Categories';
 import Slider from '../Slider/Slider';
 import YandexMap from '../YandexMap/YandexMap';
 import BouquetListMain from '../BouquetListMain/BouquetListMain'
-import { useSelector } from 'react-redux'
-import { useEffect } from 'react';
 
-function Main(props) {
-  const { cart } = useSelector((state) => state.cart)
+function Main() {
 
-  useEffect(() => {
-      localStorage.setItem('cart', JSON.stringify(cart))
-  }, [cart])
-  
   return (
     <>
       <Slider />

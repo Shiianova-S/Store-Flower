@@ -1,52 +1,49 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Order extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate({ Cart, User }) {
-      this.belongsToMany(Cart, { through: 'Cart_order' })
-      this.belongsTo(User, { foreignKey: 'user_id' })
+    static associate({ Bouquet, User, BouquetList }) {
+      this.belongsToMany(Bouquet, { through: BouquetList, foreignKey: 'order_id', as: 'orderList' });
+      this.belongsTo(User, { foreignKey: 'user_id' });
     }
   }
-  Order.init({
-    delivery_date: {
-     type: DataTypes.DATE,
+  Order.init(
+    {
+      delivery_date: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+      delivery_street: {
+        type: DataTypes.STRING,
+        defaultValue: null,
+      },
+      delivery_house: {
+        type: DataTypes.STRING,
+        defaultValue: null,
+      },
+      delivery_apartment: {
+        type: DataTypes.STRING,
+        defaultValue: null,
+      },
+      delivery_method: {
+        type: DataTypes.STRING,
+      },
+      isActive: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'User',
+          key: 'id',
+        },
+      },
     },
-    delivery_street: {
-      type: DataTypes.STRING,
-      defaultValue: '-'
+    {
+      sequelize,
+      modelName: 'Order',
     },
-    delivery_house: {
-      type: DataTypes.STRING,
-      defaultValue: '-'
-    },
-    delivery_apartment: {
-     type: DataTypes.STRING,
-     defaultValue: '-'
-    },
-    delivery_method: {
-     type: DataTypes.STRING,
-    },
-    uuid: {
-      type: DataTypes.STRING,
-      defaultValue: '-'
-    },
-    user_id: {
-     type: DataTypes.INTEGER,
-     references: {
-       model: 'User',
-       key: 'id'
-     }
-    }
-  }, {
-    sequelize,
-    modelName: 'Order',
-  });
+  );
   return Order;
 };

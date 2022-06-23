@@ -1,5 +1,5 @@
 .order-item .uuid {
-  font-size: 30px;
+  font-size: 22px;
 }
 
 .order-list {
@@ -21,5 +21,7 @@
 .order-bouquet-title {
   max-width: 100px;
   min-height: 50px;
+  text-transform: uppercase;
   word-wrap: break-word;
+  font-size: 14px;
 }

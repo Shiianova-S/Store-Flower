@@ -18,11 +18,7 @@ export function bouquetsReducer(state = [], action) {
       return [...state, action.payload]
 
     case DELETE_BOUQUET:
-      const id = action.payload
-      const index = state.findIndex((bouquet) => bouquet.id === id)
-      const bouquets = [...state]
-      bouquets.splice(index, 1)
-      return [ ...bouquets ]
+      return [...state].filter(bouquet => bouquet.id !== action.payload)
 
     case UPDATE_BOUQUET:
       return [...state.map(el => {

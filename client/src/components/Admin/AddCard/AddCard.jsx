@@ -1,79 +1,98 @@
 import React, { useState, useEffect, memo } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-import { addBouquet } from './../../../redux/actionCreate/bouquetActionCreate'
-import AdminCard from '../AdminCard/AdminCard'
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { addBouquet } from "./../../../redux/actionCreate/bouquetActionCreate";
+import ModalError from "../../Modal/ModalError";
 
-function AddCard(props) {
+function AddCard() {
+  // const [title, setTitle] = useState("")
+  // const [price, setPrice] = useState("")
+  // const [file, setFile] = useState("");
+  const [addError, setAddError] = useState("");
 
-  const [title, setTitle] = useState()
-  const [price, setPrice] = useState()
-  const [file, setFile] = useState('');
-
-  const { categories } = useSelector((state) => state)
-  const dispatch = useDispatch()
-  
-  useEffect(() => {
-    fetch('http://localhost:4000/categories')
-    .then((res) => res.json())
-    .then(result => dispatch({
-      type: 'INIT_CATEGORIES',
-      payload: result
-    }))
-    .catch(err => console.log(err))
-  },[])
-
-  const onChange = e => {
-    setFile(e.target.files[0]);
-  };
+  const { categories } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
-    formData.append('file', file);
-
-    axios.post('http://localhost:4000/bouquets', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }})
-    .then(({ data }) => dispatch(addBouquet(data)))
-    .catch(console.error());
-    setTitle('')
-    setPrice('')
-	};
+    // formData.append('file', file);
+    axios
+      .post("/bouquets", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(({ data }) => {
+        dispatch(addBouquet(data));
+      })
+      .catch((error) => {
+        if (error.response.data === "No file uploaded!") {
+          return setAddError("Файл не загружен!");
+        }
+        setAddError("Не удалось добавить!");
+        return console.log("Error: ", error.response.data);
+      });
+    event.target.reset();
+  }
 
   return (
     <div>
-          <h2>Привет, Админ</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="card-input">
-              <label className="card-input__label">Название</label>
-              <input value={title} onChange={(e) => setTitle(e.target.value)} className="card-input__input"  type="text" name="title" required />
-            </div>
-            <div className="card-input">
-              <label className="card-input__label">Описание</label>
-              <textarea type="text" name="description" id="" className="card-input__input"></textarea>
-            </div>
-            <div className="card-input">
-              <label className="card-input__label">Стоимость</label>
-              <input value={price} onChange={(e) => setPrice(e.target.value)} className="card-input__input"  type="number" name="price" required />
-            </div>
-
-            <div className="card-input">
-              <label className="card-input__label">Фото букета</label>
-              <input onChange={onChange} type="file" name="img" id="img" className="card-input__input" />
-            </div>
-
-            <div className="card-input">
-              <label className="card-input__label">Категория</label>
-              <select name="category_id" id="" className="card-input__input">
-                {categories?.map((category) => <option value={category.id} key={category.id}>{category.name}</option>)}
-              </select>
-            </div>
-            <button className="btn">Добавить букет</button>
-          </form>
+      <h2>Привет, Админ</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="card-input">
+          <label className="card-input__label">Название</label>
+          <input
+            className="card-input__input"
+            type="text"
+            name="title"
+            required
+          />
         </div>
+        <div className="card-input">
+          <label className="card-input__label">Описание</label>
+          <textarea
+            type="text"
+            name="description"
+            id=""
+            className="card-input__input"
+          ></textarea>
+        </div>
+        <div className="card-input">
+          <label className="card-input__label">Стоимость</label>
+          <input
+            className="card-input__input"
+            type="number"
+            name="price"
+            required
+          />
+        </div>
+
+        <div className="card-input">
+          <label className="card-input__label">Фото букета</label>
+          <input
+            type="file"
+            name="img"
+            id="img"
+            className="card-input__input"
+          />
+        </div>
+
+        <div className="card-input">
+          <label className="card-input__label">Категория</label>
+          <select name="category_id" id="" className="card-input__input">
+            {categories?.map((category) => (
+              <option value={category.id} key={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button className="btn">Добавить букет</button>
+      </form>
+      {addError && <ModalError addError={addError} setAddError={setAddError} />}
+    </div>
   );
 }
 

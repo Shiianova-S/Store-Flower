@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Orders', {
@@ -6,48 +5,49 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       delivery_date: {
-        type: Sequelize.DATE
+        allowNull: false,
+        type: Sequelize.DATE,
       },
       delivery_street: {
         type: Sequelize.STRING,
-        defaultValue: '-'
+        defaultValue: null,
       },
       delivery_house: {
         type: Sequelize.STRING,
-        defaultValue: '-'
+        defaultValue: null,
       },
       delivery_apartment: {
-       type: Sequelize.STRING,
-       defaultValue: '-'
+        type: Sequelize.STRING,
+        defaultValue: null,
       },
       delivery_method: {
-        type: Sequelize.STRING
-      },
-      uuid: {
         type: Sequelize.STRING,
-        defaultValue: '-'
+      },
+      isActive: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
       },
       user_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Users',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     await queryInterface.dropTable('Orders');
-  }
+  },
 };

@@ -15,10 +15,13 @@ const generateTokens = (payload) => {
 
 // валидация токенов
 const validateAccessToken = (token) => {
+  console.log(11111);
   try {
     const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+    console.log(22222, userData);
     return userData;
   } catch (error) {
+    console.log(5555555, error);
     return null;
   }
 }
